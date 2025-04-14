@@ -60,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -387,47 +387,47 @@ and modifiable endpoint list that defines a number of open311
 implementations that are defined for use in the package. The list can be
 read using <code>o311_endpoints</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">o311_endpoints</span>()</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 67 × 9</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt;    name            root  docs  jurisdiction key   pagination limit json  dialect</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;lgl&gt; &lt;lgl&gt;      &lt;int&gt; &lt;lgl&gt; &lt;chr&gt;  </span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&gt;  1 Annaberg-Buchh… http… http… annberg-buc… FALSE TRUE          50 TRUE  Mark-a…</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&gt;  2 Bloomington, IN http… &lt;NA&gt;  bloomington… FALSE TRUE        1000 TRUE  uReport</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt;  3 Bonn, DE        http… http… bonn.de      FALSE TRUE         100 TRUE  Mark-a…</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt;  4 Boston, MA      http… http… &lt;NA&gt;         FALSE TRUE          50 TRUE  Connec…</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt;  5 Brookline, MA   http… http… brooklinema… FALSE TRUE          50 TRUE  Connec…</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt;  6 Austin, TX      http… http… &lt;NA&gt;         FALSE TRUE          50 TRUE  Connec…</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt;  7 Chicago, IL     http… http… cityofchica… FALSE TRUE          50 TRUE  Connec…</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt;  8 Newport News, … http… http… cityofnewpo… FALSE TRUE          50 TRUE  Connec…</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt;  9 San Diego, CA   http… http… sandiego.gov FALSE TRUE          50 TRUE  Connec…</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt; 10 Köln / Cologne… http… &lt;NA&gt;  stadt-koeln… FALSE TRUE          50 TRUE  Mark-a…</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 57 more rows</span></span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 69 × 12</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt;    name            root  docs  jurisdiction key   pagination limit json  dialect deprecated deprecated_reason deprecated_url</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        &lt;lgl&gt; &lt;lgl&gt;      &lt;int&gt; &lt;lgl&gt; &lt;chr&gt;   &lt;lgl&gt;      &lt;chr&gt;             &lt;chr&gt;         </span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&gt;  1 &quot;Annaberg-Buch… http… http… annberg-buc… FALSE TRUE          50 TRUE  Mark-a… TRUE       switched          https://buerg…</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&gt;  2 &quot;Bloomington, … http… &lt;NA&gt;  bloomington… FALSE TRUE        1000 TRUE  uReport FALSE      &lt;NA&gt;              &lt;NA&gt;          </span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt;  3 &quot;Bonn, DE&quot;      http… http… bonn.de      FALSE TRUE         100 TRUE  Mark-a… FALSE      &lt;NA&gt;              &lt;NA&gt;          </span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt;  4 &quot;Boston, MA&quot;    http… http… &lt;NA&gt;         FALSE TRUE          50 TRUE  Connec… FALSE      &lt;NA&gt;              &lt;NA&gt;          </span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt;  5 &quot;Brookline, MA&quot; http… http… brooklinema… FALSE TRUE          50 TRUE  Connec… FALSE      &lt;NA&gt;              &lt;NA&gt;          </span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt;  6 &quot;Austin, TX&quot;    http… http… &lt;NA&gt;         FALSE TRUE          50 TRUE  Connec… FALSE      &lt;NA&gt;              &lt;NA&gt;          </span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt;  7 &quot;Chicago, IL&quot;   311a… 311a… cityofchica… FALSE TRUE          50 TRUE  Connec… FALSE      &lt;NA&gt;              &lt;NA&gt;          </span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt;  8 &quot;Newport News,… http… http… cityofnewpo… FALSE TRUE          50 TRUE  Connec… FALSE      &lt;NA&gt;              &lt;NA&gt;          </span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt;  9 &quot;San Diego, CA&quot; http… http… sandiego.gov FALSE TRUE          50 TRUE  Connec… FALSE      &lt;NA&gt;              &lt;NA&gt;          </span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt; 10 &quot;K\u00f6ln / C… http… &lt;NA&gt;  stadt-koeln… FALSE TRUE          50 TRUE  Mark-a… FALSE      &lt;NA&gt;              &lt;NA&gt;          </span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 59 more rows</span></span></code></pre></div>
 <p>The list does neither claim comprehensiveness nor up-to-dateness. It
 arguably provides some of the most important and easily accessible
-endpoints as of 2024. However, <code>r311</code> also offers the ability
+endpoints as of 2025. However, <code>r311</code> also offers the ability
 to add new endpoints to <code>o311_endpoints</code> using
 <code>o311_add_endpoint</code>. You need to provide a name (for lookup)
 and a root URL (the URL used to send requests). The following code adds
-the open311 test server of Rostock, Germany.</p>
+the open311 test server of Mecklenburg-Vorpommern, Germany.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">o311_add_endpoint</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;Rostock Test&quot;</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">&quot;https://demo.klarschiff-hro.de/backoffice/citysdk/&quot;</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;MV Test&quot;</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">root =</span> <span class="st">&quot;https://klarschiff-mv.sis-schwerin.de/backoffice/citysdk/&quot;</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">jurisdiction =</span> <span class="st">&quot;rostock.de&quot;</span></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>)</span></code></pre></div>
 <p>Retrieving the endpoints list again confirms that you successfully
 added a new row to the endpoints dataframe.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">o311_endpoints</span>())</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; [1] 68</span></span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; [1] 70</span></span></code></pre></div>
 <p>You can now select the Rostock test API to the session using
 <code>o311_api</code>. This function matches an API using endpoint name
 and jurisdiction ID and attaches it to the active session. Query
 functions automatically detect the attached API.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">o311_api</span>(<span class="st">&quot;Rostock Test&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">o311_api</span>(<span class="st">&quot;MV Test&quot;</span>)</span></code></pre></div>
 <p>After attaching an API, <code>o311_ok</code> confirms that the
 selected endpoint is able to handle request queries.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">o311_ok</span>()</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
-<p>As the result is , you can safely start receiving real request
-data.</p>
+<p>As the result is <code>TRUE</code>, you can safely start receiving
+real request data.</p>
 </div>
 <div id="making-requests" class="section level1">
 <h1>Making requests</h1>
@@ -439,80 +439,84 @@ can access it. You can now make requests.</p>
 can use <code>o311_services</code>, which returns a list of Rostock’s
 administrative services.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">o311_services</span>()</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 161 × 8</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt;    service_code service_name  description metadata type  keywords group group_id</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;         &lt;lgl&gt;       &lt;lgl&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;  1 86           Ampel behind… NA          FALSE    real… idea     Barr…      115</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt;  2 87           Ampelschaltu… NA          FALSE    real… idea     Barr…      115</span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt;  3 88           Bordstein ab… NA          FALSE    real… idea     Barr…      115</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;  4 89           Zugang rolls… NA          FALSE    real… idea     Barr…      115</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;  5 90           Ampelschaltu… NA          FALSE    real… idea     Fahr…      120</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt;  6 91           Beleuchtung … NA          FALSE    real… idea     Fahr…      120</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt;  7 92           Beschilderun… NA          FALSE    real… idea     Fahr…      120</span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;  8 93           Beschilderun… NA          FALSE    real… idea     Fahr…      120</span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt;  9 94           Bordstein ab… NA          FALSE    real… idea     Fahr…      120</span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; 10 95           Fahrradständ… NA          FALSE    real… idea     Fahr…      120</span></span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 151 more rows</span></span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 183 × 8</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt;    service_code service_name                              description metadata type     keywords group            group_id</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;                                     &lt;lgl&gt;       &lt;lgl&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;               &lt;int&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;  1 127          &quot;Ampel behindertengerecht gestalten&quot;      NA          FALSE    realtime idea     Barrierefreiheit       11</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt;  2 128          &quot;Ampelschaltung \u00e4ndern&quot;              NA          FALSE    realtime idea     Barrierefreiheit       11</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt;  3 129          &quot;Bordstein absenken&quot;                      NA          FALSE    realtime idea     Barrierefreiheit       11</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;  4 130          &quot;Zugang rollstuhlgerecht gestalten&quot;       NA          FALSE    realtime idea     Barrierefreiheit       11</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;  5 131          &quot;Ampelschaltung \u00e4ndern&quot;              NA          FALSE    realtime idea     Fahrradverkehr         12</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt;  6 132          &quot;Beleuchtung ver\u00e4ndern&quot;              NA          FALSE    realtime idea     Fahrradverkehr         12</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt;  7 133          &quot;Beschilderung/Markierung \u00e4ndern&quot;    NA          FALSE    realtime idea     Fahrradverkehr         12</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;  8 134          &quot;Beschilderung/Markierung einf\u00fchren&quot; NA          FALSE    realtime idea     Fahrradverkehr         12</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt;  9 135          &quot;Bordstein absenken&quot;                      NA          FALSE    realtime idea     Fahrradverkehr         12</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; 10 136          &quot;Fahrradst\u00e4nder aufstellen&quot;          NA          FALSE    realtime idea     Fahrradverkehr         12</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; # ℹ 173 more rows</span></span></code></pre></div>
 </div>
 <div id="requests" class="section level2">
 <h2>Requests</h2>
 <p>To get data about civic issues in the city area, run
 <code>o311_requests</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">o311_requests</span>()</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 6 features and 15 fields</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 52 features and 15 fields</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 12.07615 ymin: 54.06731 xmax: 12.23699 ymax: 54.2091</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 11.17392 ymin: 53.38346 xmax: 13.31174 ymax: 54.20873</span></span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 16</span></span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt;   service_request_id status_notes status   service_code service_name description</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt;                &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;      </span></span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; 1                  3 &quot;&quot;           in_proc…           16 Grünschnitt… Dieser Wei…</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; 2                  2 &quot;&quot;           in_proc…           60 Sitzgelegen… Dieser Sit…</span></span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; 3                  5 &quot;&quot;           closed             62 Ampel schad… Die Ampel …</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; 4                  6 &quot;&quot;           reviewed          110 Spielplatz … Hier sollt…</span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; 5                  4 &quot;&quot;           closed            129 Papierkorb/… Dieser Abf…</span></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; 6                  1 &quot;&quot;           in_proc…          160 Altfahrzeug… Das Schrot…</span></span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; # ℹ 10 more variables: agency_responsible &lt;chr&gt;, service_notice &lt;lgl&gt;,</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; #   requested_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;, expected_datetime &lt;lgl&gt;,</span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; #   address &lt;chr&gt;, adress_id &lt;lgl&gt;, media_url &lt;chr&gt;, zipcode &lt;lgl&gt;,</span></span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; #   geometry &lt;POINT [°]&gt;</span></span></code></pre></div>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 52 × 16</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt;    service_request_id status_notes            status service_code service_name description agency_responsible service_notice</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt;                 &lt;int&gt; &lt;chr&gt;                   &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;              &lt;lgl&gt;         </span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt;  1                263  &lt;NA&gt;                   recei…           30 &quot;Sperrm\u00… &quot;redaktion… &quot;Abfallwirtschaft… NA            </span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt;  2                217  &lt;NA&gt;                   recei…          103 &quot;Baum schad… &quot;redaktion… &quot;Forstamt&quot;         NA            </span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt;  3                272 &quot;Reparatur beauftragt&quot;  in_pr…            4 &quot;bauliche G… &quot;Hier ist … &quot;LK-LUP-Verkehr&quot;   NA            </span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;  4                150 &quot;Vielen Dank f\u00fcr … in_pr…            5 &quot;Beleuchtun… &quot;Stra\u00d… &quot;Bauamt&quot;           NA            </span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;  5                173 &quot;Vorgang wurde zur Bea… in_pr…            3 &quot;Ampel scha… &quot;Ampel sch… &quot;Regional-Adminis… NA            </span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;  6                154 &quot;Das Anliegen wird im … in_pr…           13 &quot;Hundekot&quot;   &quot;Die Halte… &quot;Beschwerdemanage… NA            </span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt;  7                210  &lt;NA&gt;                   recei…          117 &quot;Wegereinig… &quot;redaktion… &quot;Forstamt&quot;         NA            </span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;  8                201  &lt;NA&gt;                   recei…          162 &quot;Schutzh\u0… &quot;redaktion… &quot;Forstamt&quot;         NA            </span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;  9                166 &quot;Verstanden.&quot;           in_pr…            3 &quot;Ampel scha… &quot;redaktion… &quot;Bauamt (Amt Rost… NA            </span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; 10                245 &quot;Vielen Dank f\u00fcr … in_pr…            8 &quot;Beschilder… &quot;Zusatzzei… &quot;Parchim - FB 3 R… NA            </span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; # ℹ 42 more rows</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; # ℹ 8 more variables: requested_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;, expected_datetime &lt;lgl&gt;, address &lt;chr&gt;,</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; #   adress_id &lt;lgl&gt;, media_url &lt;chr&gt;, zipcode &lt;lgl&gt;, geometry &lt;POINT [°]&gt;</span></span></code></pre></div>
 <p>Using the output of <code>o311_services</code>, you can further
 narrow down the output of requests. Open311 defines a set of standard
 parameters which are implemented by all endpoints. Using the
 <code>service_code</code> parameter with one of the previously returned
-service codes, only complaints about businesses illegally using shared
-spaces are returned.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">o311_requests</span>(<span class="at">service_code =</span> <span class="st">&quot;16&quot;</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 1 feature and 15 fields</span></span>
+service codes, only complaints about broken traffic lights are
+returned.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">o311_requests</span>(<span class="at">service_code =</span> <span class="st">&quot;3&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 6 features and 15 fields</span></span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 12.17547 ymin: 54.10655 xmax: 12.17547 ymax: 54.10655</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 11.84164 ymin: 53.41644 xmax: 12.31198 ymax: 54.20656</span></span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 16</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt;   service_request_id status_notes status   service_code service_name description</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt;                &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;      </span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; 1                  3 &quot;&quot;           in_proc…           16 Grünschnitt… Dieser Wei…</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; # ℹ 10 more variables: agency_responsible &lt;chr&gt;, service_notice &lt;lgl&gt;,</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; #   requested_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;, expected_datetime &lt;lgl&gt;,</span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; #   address &lt;chr&gt;, adress_id &lt;lgl&gt;, media_url &lt;chr&gt;, zipcode &lt;lgl&gt;,</span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; #   geometry &lt;POINT [°]&gt;</span></span></code></pre></div>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 16</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt;   service_request_id status_notes             status service_code service_name description agency_responsible service_notice</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt;                &lt;int&gt; &lt;chr&gt;                    &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;              &lt;lgl&gt;         </span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; 1                166 &quot;Verstanden.&quot;            in_pr…            3 Ampel schad… &quot;redaktion… &quot;Bauamt (Amt Rost… NA            </span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; 2                158  &lt;NA&gt;                    revie…            3 Ampel schad… &quot;Die Ampel… &quot;Stra\u00dfenmeis… NA            </span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; 3                251  &lt;NA&gt;                    recei…            3 Ampel schad… &quot;redaktion… &quot;LK-LUP-Verkehr&quot;   NA            </span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; 4                173 &quot;Vorgang wurde zur Bear… in_pr…            3 Ampel schad… &quot;Ampel sch… &quot;Regional-Adminis… NA            </span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; 5                250 &quot;Vielen Dank f\u00fcr d… in_pr…            3 Ampel schad… &quot;Ampel aus… &quot;LK-LUP-Verkehr&quot;   NA            </span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; 6                273  &lt;NA&gt;                    recei…            3 Ampel schad… &quot;Die Daten… &quot;Standardzust\u00… NA            </span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; # ℹ 8 more variables: requested_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;, expected_datetime &lt;lgl&gt;, address &lt;chr&gt;,</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; #   adress_id &lt;lgl&gt;, media_url &lt;lgl&gt;, zipcode &lt;lgl&gt;, geometry &lt;POINT [°]&gt;</span></span></code></pre></div>
 <p>Similarly, using a <code>service_request_id</code> from the output,
 you can retrieve a single service request from the API.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">o311_request</span>(<span class="st">&quot;4&quot;</span>)</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">o311_request</span>(<span class="st">&quot;250&quot;</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 1 feature and 15 fields</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 12.12266 ymin: 54.06731 xmax: 12.12266 ymax: 54.06731</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 11.86831 ymin: 53.43376 xmax: 11.86831 ymax: 53.43376</span></span>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
 <span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 16</span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;   service_request_id status_notes status service_code service_name   description</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt;                &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;      </span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; 1                  4 &quot;&quot;           closed          129 Papierkorb/Ab… Dieser Abf…</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; # ℹ 10 more variables: agency_responsible &lt;chr&gt;, service_notice &lt;lgl&gt;,</span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; #   requested_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;, expected_datetime &lt;lgl&gt;,</span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; #   address &lt;chr&gt;, adress_id &lt;lgl&gt;, media_url &lt;chr&gt;, zipcode &lt;lgl&gt;,</span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; #   geometry &lt;POINT [°]&gt;</span></span></code></pre></div>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;   service_request_id status_notes             status service_code service_name description agency_responsible service_notice</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt;                &lt;int&gt; &lt;chr&gt;                    &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;              &lt;lgl&gt;         </span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; 1                250 &quot;Vielen Dank f\u00fcr d… in_pr…            3 Ampel schad… Ampel ausg… LK-LUP-Verkehr     NA            </span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; # ℹ 8 more variables: requested_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;, expected_datetime &lt;lgl&gt;, address &lt;chr&gt;,</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; #   adress_id &lt;lgl&gt;, media_url &lt;lgl&gt;, zipcode &lt;lgl&gt;, geometry &lt;POINT [°]&gt;</span></span></code></pre></div>
 </div>
 <div id="bulk-queries" class="section level2">
 <h2>Bulk queries</h2>
@@ -522,32 +526,29 @@ Pagination can be controlled with the <code>page</code> argument. To
 control pagination, the <code>o311_request_all</code> function can come
 in handy. It automatically iterates through pages and heuristically
 decides when to stop. The following example retrieves data from the
-first two pages, resulting in a tibble with 100 service requests.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">o311_api</span>(<span class="st">&quot;Rostock, DE&quot;</span>)</span>
+first two pages, resulting in a tibble with 200 service requests.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">o311_api</span>(<span class="st">&quot;Cologne&quot;</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">o311_request_all</span>(<span class="at">max_pages =</span> <span class="dv">2</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 4268 features and 15 fields</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 200 features and 11 fields</span></span>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 12.01306 ymin: 54.05571 xmax: 12.20568 ymax: 54.20905</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 6.829202 ymin: 50.85319 xmax: 7.104497 ymax: 51.04662</span></span>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4,268 × 16</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt;    service_request_id status_notes  status service_code service_name description</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt;                 &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;      </span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;  1              24824 &quot;&quot;            in_pr…          113 Beschilderu… Kreuzung A…</span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt;  2              95322 &quot;Danke für I… in_pr…            2 bauliche Ge… Gefährlich…</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt;  3              70677  &lt;NA&gt;         recei…            2 bauliche Ge… redaktione…</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt;  4              72069  &lt;NA&gt;         recei…           22 Sperrmüll    redaktione…</span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt;  5              72070  &lt;NA&gt;         recei…           15 Elektroschr… redaktione…</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt;  6              70740  &lt;NA&gt;         revie…           22 Sperrmüll    Die 1.Meld…</span></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt;  7              70076  &lt;NA&gt;         closed          160 Altfahrzeug… &lt;NA&gt;       </span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt;  8              75356  &lt;NA&gt;         recei…           17 Hausmüll     redaktione…</span></span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt;  9              43518 &quot;Der Erdhauf… in_pr…           13 Bauabfall    Illegale E…</span></span>
-<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co">#&gt; 10              44333  &lt;NA&gt;         recei…            2 bauliche Ge… redaktione…</span></span>
-<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt; # ℹ 4,258 more rows</span></span>
-<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt; # ℹ 10 more variables: agency_responsible &lt;chr&gt;, service_notice &lt;lgl&gt;,</span></span>
-<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co">#&gt; #   requested_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;, expected_datetime &lt;chr&gt;,</span></span>
-<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; #   address &lt;chr&gt;, adress_id &lt;lgl&gt;, media_url &lt;chr&gt;, zipcode &lt;lgl&gt;,</span></span>
-<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="co">#&gt; #   geometry &lt;POINT [°]&gt;</span></span></code></pre></div>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; # A tibble: 200 × 12</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt;    service_request_id title     description address_string service_name requested_datetime updated_datetime status media_url</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;              &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;              &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;    </span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;  1 1386-2025          &quot;#1386-2… &quot;Mehrere L… &quot;50769 K\u00f… &quot;Leuchtmitt… 2025-01-16T00:35:… 2025-02-15T12:2… closed &quot;https:/…</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt;  2 1387-2025          &quot;#1387-2… &quot;Butzweile… &quot;50829 K\u00f… &quot;Schrott-Kf… 2025-01-16T06:13:… 2025-01-16T11:4… open   &quot;https:/…</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt;  3 1388-2025          &quot;#1388-2… &quot;Die Stra\… &quot;50997 K\u00f… &quot;Leuchtmitt… 2025-01-16T06:35:… 2025-02-15T12:2… closed &quot;&quot;       </span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt;  4 1389-2025          &quot;#1389-2… &quot;Dauerbaus… &quot;50968 K\u00f… &quot;Stra\u00df… 2025-01-16T07:04:… 2025-03-27T12:2… closed &quot;&quot;       </span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt;  5 1390-2025          &quot;#1390-2… &quot;Hier ist … &quot;50931 K\u00f… &quot;Defekte Ve… 2025-01-16T07:06:… 2025-02-16T09:2… closed &quot;&quot;       </span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt;  6 1391-2025          &quot;#1391-2… &quot;Schlagloc… &quot;50672 K\u00f… &quot;Defekte Ob… 2025-01-16T07:19:… 2025-01-17T07:5… closed &quot;&quot;       </span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt;  7 1394-2025          &quot;#1394-2… &quot;M\u00fcll… &quot;51061 K\u00f… &quot;Wilder M\u… 2025-01-16T08:08:… 2025-02-15T12:2… closed &quot;https:/…</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt;  8 1393-2025          &quot;#1393-2… &quot;Seit Mona… &quot;50931 K\u00f… &quot;Schrottfah… 2025-01-16T08:10:… 2025-01-16T11:4… open   &quot;https:/…</span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt;  9 1392-2025          &quot;#1392-2… &quot;Schrank&quot;   &quot;50739 K\u00f… &quot;Wilder M\u… 2025-01-16T08:10:… 2025-02-15T12:2… closed &quot;https:/…</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co">#&gt; 10 1395-2025          &quot;#1395-2…  &lt;NA&gt;       &quot;50733 K\u00f… &quot;Wilder M\u… 2025-01-16T08:21:… 2025-02-15T12:2… closed &quot;https:/…</span></span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt; # ℹ 190 more rows</span></span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt; # ℹ 3 more variables: status_note &lt;chr&gt;, service_code &lt;chr&gt;, geometry &lt;POINT [°]&gt;</span></span></code></pre></div>
 </div>
 <div id="non-standard-parameters" class="section level2">
 <h2>Non-standard parameters</h2>
@@ -559,7 +560,30 @@ requests. Available parameters can usually be found in the respective
 documentation (e.g. on GitHub for <a href="https://github.com/bfpi/klarschiff-citysdk">Klarschiff
 CitySDK</a>). The following query returns the last 50 requests tagged
 with the “idea” keyword.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>tickets <span class="ot">&lt;-</span> <span class="fu">o311_requests</span>(<span class="at">keyword =</span> <span class="st">&quot;idea&quot;</span>, <span class="at">max_requests =</span> <span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">o311_api</span>(<span class="st">&quot;Rostock, DE&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>tickets <span class="ot">&lt;-</span> <span class="fu">o311_requests</span>(<span class="at">keyword =</span> <span class="st">&quot;idea&quot;</span>, <span class="at">max_requests =</span> <span class="dv">50</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>tickets</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 50 features and 15 fields</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; Geometry type: POINT</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: 12.0452 ymin: 54.06011 xmax: 12.17308 ymax: 54.17656</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; # A tibble: 50 × 16</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt;    service_request_id status_notes            status service_code service_name description agency_responsible service_notice</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;                 &lt;int&gt; &lt;chr&gt;                   &lt;chr&gt;         &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;              &lt;lgl&gt;         </span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt;  1              48005  &lt;NA&gt;                   recei…           93 &quot;Beschilder… &quot;redaktion… &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt;  2              42258  &lt;NA&gt;                   revie…           99 &quot;Beschilder… &quot;Oft kommt… &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt;  3              50762  &lt;NA&gt;                   recei…          113 &quot;Beschilder… &quot;redaktion… &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt;  4              40539  &lt;NA&gt;                   revie…          112 &quot;Beschilder… &quot;Sehr geeh… &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt;  5              45486  &lt;NA&gt;                   recei…          113 &quot;Beschilder… &quot;redaktion… &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt;  6              42022  &lt;NA&gt;                   recei…          112 &quot;Beschilder… &quot;Nach dem … &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt;  7              46210  &lt;NA&gt;                   recei…           93 &quot;Beschilder… &quot;redaktion… &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt;  8              50520  &lt;NA&gt;                   recei…          113 &quot;Beschilder… &quot;redaktion… &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt;  9              40653 &quot;Vielen Dank f\u00fcr … in_pr…           93 &quot;Beschilder… &quot;Wenn ich … &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; 10              42112  &lt;NA&gt;                   recei…           99 &quot;Beschilder… &quot;redaktion… &quot;Tiefbauamt (Unte… NA            </span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; # ℹ 40 more rows</span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; # ℹ 8 more variables: requested_datetime &lt;chr&gt;, updated_datetime &lt;chr&gt;, expected_datetime &lt;lgl&gt;, address &lt;chr&gt;,</span></span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; #   adress_id &lt;lgl&gt;, media_url &lt;chr&gt;, zipcode &lt;lgl&gt;, geometry &lt;POINT [°]&gt;</span></span></code></pre></div>
 <p>Some custom parameters can also alter the shape of the output. In the
 following example, we query just the count of total requests using the
 <code>just_count</code> parameter. The result is a 1×1 tibble containing
@@ -568,13 +592,13 @@ a count value.</p>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 1</span></span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt;   value</span></span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt;</span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt; 1  4268</span></span></code></pre></div>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt; 1  3310</span></span></code></pre></div>
 <p>The CitySDK extensions also offers additional URL paths which can be
 queried using the generic <code>o311_query</code> function.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>poly <span class="ot">&lt;-</span> <span class="fu">o311_query</span>(<span class="st">&quot;areas&quot;</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">plot</span>(poly<span class="sc">$</span>grenze)</span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="fu">plot</span>(tickets<span class="sc">$</span>geometry, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img role="img" src="data:image/png;base64,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" /></p>
 </div>
 </div>
 <div id="cleanup" class="section level1">

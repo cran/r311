@@ -84,15 +84,31 @@ o311_api <- function(endpoint = NULL,
     endpoints <- endpoints[endpoints$jurisdiction %in% jurisdiction, ]
   } else if (!is.null(endpoint)) {
     endpoints <- endpoints[grepl(
-      endpoint,
-      endpoints$name,
-      ignore.case = TRUE
+      tolower(endpoint),
+      tolower(endpoints$name),
+      fixed = TRUE
     ), ]
   }
 
   check_jurisdiction(endpoints)
   check_format(endpoints, format)
   endpoints$json <- identical(format, "json")
+
+  if (isTRUE(endpoints[["deprecated"]])) {
+    api_deprecated(
+      endpoints[["deprecated_reason"]],
+      endpoints[["deprecated_url"]]
+    )
+  }
+
+  if (isTRUE(endpoints[["questioning"]])) {
+    warning(paste( # nocov start
+      "This API was marked as \"questioning\". This means that it did not",
+      "work the last time it was checked and will be removed on the next",
+      "release if nothing changes. If you think this is a mistake, please",
+      "submit a bug report!"
+    )) # nocov end
+  }
 
   if (isTRUE(endpoints$key) && !is.null(key)) {
     assign("api_key", key, envir = o311_cache)
@@ -119,14 +135,32 @@ get_juris <- function() {
 
 
 setup_error <- function() {
-  abort(
-    paste(
-      "Could not find root API.",
-      "Please set an active API using `o311_api()`"
-    ),
-    call. = FALSE,
+  r311_abort(
+    "Could not find root API.",
+    "Please set an active API using `o311_api()`",
+    call = NULL,
     class = "setup_error"
   )
+}
+
+
+api_deprecated <- function(reason = NULL, fallback = NULL) {
+  msg <- "The selected API is marked as deprecated."
+
+  reason <- switch(
+    reason %||% "unknown",
+    switched = "The associated city seems to have switched to a different API.",
+    abandoned = "The associated city seems to have abandoned public service request management."
+  )
+
+  if (!is.null(fallback)) {
+    fallback <- sprintf(
+      "You may be able to retrieve civic service data by visiting %s.",
+      fallback
+    )
+  }
+
+  r311_abort(msg, reason, fallback, call = NULL, class = "deprecated")
 }
 
 
@@ -135,10 +169,10 @@ check_jurisdiction <- function(endpoints) {
     endpoints_dup <- length(unique(endpoints$name)) == 1
     juris_dup <- length(unique(endpoints$jurisdiction)) == 1
 
-    abort(
+    r311_abort(
+      "Multiple APIs matched.",
       paste(
-        "Multiple APIs matched.\n",
-        "Consider changing the input arguments or fixing the endpoints list",
+        "Consider changing the input arguments or fix the endpoints list",
         "using `o311_reset_endpoints()`."
       ),
       class = "endpoints_corrupt_error"
@@ -146,12 +180,9 @@ check_jurisdiction <- function(endpoints) {
   }
 
   if (!nrow(endpoints)) {
-    abort(
-      paste(
-        "No jurisdiction could be found given the specified",
-        "city / jurisdiction ID.\nRun `o311_endpoints()`",
-        "to get an overview of available jurisdictions."
-      ),
+    r311_abort(
+      "No jurisdiction could be found given the specified city / jurisdiction ID.",
+      "Run `o311_endpoints()` to get an overview of available jurisdictions.",
       class = "not_found_error"
     )
   }
@@ -160,15 +191,13 @@ check_jurisdiction <- function(endpoints) {
 
 check_format <- function(endpoints, format) {
   if (!endpoints$json && identical(format, "json")) {
-    abort(
-      paste(
-        "JSON responses are not supported by the given API.",
-        "Change the `format` argument to \"xml\"."
-      ),
+    r311_abort(
+      "JSON responses are not supported by the given API.",
+      "Change the `format` argument to \"xml\".",
       class = "json_unsupported_error"
     )
   } else if (!loadable("xml2", "xmlconvert") && identical(format, "xml")) {
-    abort(
+    r311_abort(
       "The `xml2` and `xmlconvert` packages are needed to accept XML responses.",
       class = "package_error"
     )
@@ -178,9 +207,10 @@ check_format <- function(endpoints, format) {
 
 #' @export
 print.r311_api <- function(x, ...) {
+  x <- Filter(Negate(is.null), x)
   fmt <- vapply(names(x), FUN.VALUE = character(1), function(i) {
     nws <- strrep(" ", 12 - nchar(i))
-    paste0(" ", i, nws, " : ", x[[i]] %||% "None")
+    paste0(" ", i, nws, " : ", x[[i]])
   })
   fmt <- paste0("<r311_api>\n", paste(fmt, collapse = "\n"))
   cat(fmt, "\n")

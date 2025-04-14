@@ -56,7 +56,10 @@
 #' installation directory. This list contains a limited number of endpoints
 #' that were proven to work at the time of package development. It does not
 #' include newer/smaller/less known endpoints or test APIs. These can be
-#' manually added using \code{o311_add_endpoint}.
+#' manually added using \code{o311_add_endpoint}. If an API is down and it
+#' is unknown whether it will be up again or not, its \code{questioning} value
+#' is set to \code{TRUE}. If they will not go up again, they are removed upon
+#' the next release.
 #'
 #' @note
 #' This function uses \code{\link[tools]{R_user_dir}} to persistently store
@@ -141,7 +144,7 @@ o311_endpoints <- function(...) {
   dots <- list(...)
 
   if (!all(names(dots) %in% names(endpoints))) {
-    abort(
+    r311_abort(
       "Keys in `...` must correspond to an endpoints column.",
       class = "endpoints_filter_error"
     )
@@ -149,6 +152,14 @@ o311_endpoints <- function(...) {
 
   for (col in names(dots)) {
     endpoints <- endpoints[endpoints[[col]] %in% dots[[col]], ]
+  }
+
+  if ("deprecated" %in% names(endpoints)) {
+    endpoints[is.na(endpoints$deprecated), "deprecated"] <- FALSE
+  }
+
+  if ("questioning" %in% names(endpoints)) {
+    endpoints[is.na(endpoints$deprecated), "questioning"] <- FALSE
   }
 
   endpoints

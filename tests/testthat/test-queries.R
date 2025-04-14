@@ -21,6 +21,7 @@ test_that("simple queries return the expected output", {
 
 
 test_that("fails gracefully", {
+  on.exit(o311_reset_endpoints())
   add_test_endpoint("sf invalid", juris = "test")
   o311_api("sf invalid")
   expect_error(o311_query("services"), class = "o311_403")
@@ -31,15 +32,20 @@ test_that("fails gracefully", {
 
 
 test_that("validation works", {
+  on.exit(o311_reset_endpoints())
   add_test_endpoint("sf invalid", juris = "test")
   ep <- o311_endpoints()
-  vldt <- validate_endpoints(c(1, nrow(ep)))
-  expect_identical(vldt$reason_requests, c(NA, "API not reachable"))
-  expect_identical(vldt$requests, c(TRUE, FALSE))
-  o311_reset_endpoints()
+  intact_idx <- which(ep$name %in% ep[!ep$deprecated, ]$name[1])
+  depr_idx <- which(ep$name %in% ep[ep$deprecated, ]$name[1])
+  vldt <- validate_endpoints(c(intact_idx, depr_idx, nrow(ep)))
+  expect_identical(vldt$reason_requests[3], "API not reachable")
+  expect_identical(vldt$reason_requests[2], "Deprecated")
+  expect_false(vldt$requests[2])
+  expect_false(vldt$requests[3])
 })
 
 test_that("formal validation works", {
+  on.exit(o311_reset_endpoints())
   with_mocked_bindings(
     {
       add_test_endpoint()
@@ -51,7 +57,6 @@ test_that("formal validation works", {
   vldt <- validate_endpoints(c(nrow(ep), nrow(ep) - 1))
   expect_in(vldt$reason_requests, "Endpoints not unique")
   expect_identical(vldt$requests, c(FALSE, FALSE))
-  o311_reset_endpoints()
 })
 
 test_that("tidying xml produces a valid dataframe", {
@@ -68,46 +73,49 @@ test_that("wkt is parsed if needed", {
 
 
 test_that("o311_ok detects wrong roots", {
+  on.exit(o311_reset_endpoints())
   o311_add_endpoint("unavailable", root = "google.com/open311/v2")
   o311_api("unavailable")
   expect_false(o311_ok())
-  expect_s3_class(o311_ok(error = TRUE), class = "o311_404")
+  expect_error(o311_ok(error = TRUE), class = "o311_404")
 
   o311_add_endpoint("empty", root = "https://seeclickfix.com/open311/v2/20/")
   o311_api("empty")
-  expect_s3_class(o311_ok(error = TRUE), class = "o311_ok_error")
+  expect_error(o311_ok(error = TRUE), class = "o311_ok_error")
   expect_equal(nrow(o311_requests()), 0)
 
-  o311_add_endpoint("invalid", root = "http://echo.jsontest.com/key/value/one/two")
+  o311_add_endpoint("invalid", root = "https://test.org/data.json")
   o311_api("invalid")
-  expect_s3_class(o311_ok(error = TRUE), class = "o311_ok_error")
+  with_mocked_bindings(
+    GET = function(...) data.frame(),
+    expect_error(o311_ok(error = TRUE), class = "o311_ok_error")
+  )
 
   add_test_endpoint()
   o311_api("sd test")
   expect_true(o311_ok())
-
-  o311_reset_endpoints()
 })
 
 
 test_that("queries change the response", {
+  on.exit(o311_reset_endpoints())
   add_test_endpoint()
   o311_api("sd test")
   tick <- o311_requests(status = "open")
   expect_identical(unique(tick$status), "open")
-  o311_reset_endpoints()
 })
 
 
 test_that("time is correctly formatted", {
+  on.exit(o311_reset_endpoints())
   add_test_endpoint()
   o311_api("sd test")
   expect_gt(nrow(o311_requests(end_date = Sys.time())), 0)
-  o311_reset_endpoints()
 })
 
 
 test_that("o311_request_all can terminate", {
+  on.exit(o311_reset_endpoints())
   add_test_endpoint()
   o311_api("sd test")
   expect_error(o311_request_all(page = 1), class = "o311_page_unsupported_error")
@@ -125,5 +133,4 @@ test_that("o311_request_all can terminate", {
     }
   )), 1)
   expect_equal(nrow(o311_request_all(max_pages = 2)), 100)
-  o311_reset_endpoints()
 })
